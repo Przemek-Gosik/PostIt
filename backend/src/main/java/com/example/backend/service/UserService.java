@@ -54,4 +54,9 @@ public class UserService {
                 .token(token)
                 .build();
     }
+
+    public User getUserFromAuthentication(){
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        return (User)authentication.getPrincipal();
+    }
 }
