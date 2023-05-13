@@ -2,4 +2,5 @@
   <div class="row" *ngFor="let note of notes, let i=index">
     <app-post-it-note [note]="note"> </app-post-it-note>
   </div>
+  <button mat-fab (click)="addNewNote()"><mat-icon>add</mat-icon></button>
 </div>

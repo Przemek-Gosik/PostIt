@@ -25,4 +25,10 @@ export class HomeComponent implements OnInit {
     })
   }
 
+  addNewNote():void{
+    this.notes.push({
+      text:""
+    })
+  }
+
 }
