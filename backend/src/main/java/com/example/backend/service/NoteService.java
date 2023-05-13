@@ -41,8 +41,8 @@ public class NoteService {
         noteRepository.delete(note);
     }
 
-    public List<Note> getAllNotes(){
-        return noteRepository.findAll();
+    public List<NoteDto> getAllNotes(){
+        return noteMapper.toDto(noteRepository.findAll());
     }
 
     public NoteDto getNoteById(Long id){
