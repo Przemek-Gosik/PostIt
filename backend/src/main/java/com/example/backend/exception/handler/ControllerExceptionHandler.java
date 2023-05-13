@@ -4,8 +4,6 @@ import com.example.backend.exception.ResourceNotFoundException;
 import com.example.backend.exception.message.ErrorMessage;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
-import org.springframework.security.authentication.BadCredentialsException;
-import org.springframework.security.core.AuthenticationException;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -47,18 +45,5 @@ public class ControllerExceptionHandler {
         );
     }
 
-    @ExceptionHandler({AuthenticationException.class,
-            BadCredentialsException.class
-    })
-    @ResponseStatus(value = HttpStatus.UNAUTHORIZED)
-    public ErrorMessage handleAuthenticationFailedException(Exception exception,
-                                                            WebRequest webRequest){
-        log.warn(exception.getMessage());
-        return new ErrorMessage(
-                HttpStatus.UNAUTHORIZED.value(),
-                LocalDateTime.now(),
-                exception.getMessage(),
-                webRequest.getDescription(false)
-        );
-    }
+
 }
