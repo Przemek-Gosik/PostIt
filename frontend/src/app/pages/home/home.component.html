@@ -1,0 +1,5 @@
+<div>
+  <div class="row" *ngFor="let note of notes, let i=index">
+    <app-post-it-note [note]="note"> </app-post-it-note>
+  </div>
+</div>
