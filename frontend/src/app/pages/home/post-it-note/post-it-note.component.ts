@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { Note } from '../../../models/Note';
 import { MatDialog } from '@angular/material/dialog';
 import { DeleteNoteDialogComponent } from './delete-note-dialog/delete-note-dialog.component';
@@ -15,6 +15,7 @@ export class PostItNoteComponent implements OnInit {
   constructor(private dialog: MatDialog) {}
 
   @Input() note?: Note;
+  @Output() noteToDelete = new EventEmitter();
 
   ngOnInit(): void {
     if (this.note) {
@@ -28,8 +29,11 @@ export class PostItNoteComponent implements OnInit {
 
   openDialog(): void {
     let dialogRef = this.dialog.open(DeleteNoteDialogComponent);
-    dialogRef.afterClosed().subscribe((res) => {
-      console.log(res);
+    dialogRef.afterClosed().subscribe((res: boolean) => {
+      if (res) {
+        this.noteToDelete.emit();
+      } else {
+      }
     });
   }
 }

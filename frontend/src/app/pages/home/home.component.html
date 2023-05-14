@@ -2,10 +2,10 @@
   <div class="app-home__container">
     <div class="app-home__notes" *ngFor="let note of notes, let i=index">
       <div class="app-home__note">
-        <app-post-it-note [note]="note"></app-post-it-note>
+        <app-post-it-note [note]="note" (noteToDelete)="deleteNote(i)"></app-post-it-note>
       </div>
     </div>
-    <div>
+    <div class="app-home__add-button">
       <button mat-fab color="basic" (click)="addNewNote()">
         <mat-icon>add</mat-icon>
       </button>
