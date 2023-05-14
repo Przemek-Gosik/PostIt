@@ -1,6 +1,14 @@
-<div>
-  <div class="row" *ngFor="let note of notes, let i=index">
-    <app-post-it-note [note]="note"> </app-post-it-note>
+<div class="app-home__component">
+  <div class="app-home__container">
+    <div class="app-home__notes" *ngFor="let note of notes, let i=index">
+      <div class="app-home__note">
+        <app-post-it-note [note]="note"></app-post-it-note>
+      </div>
+    </div>
+    <div>
+      <button mat-fab color="basic" (click)="addNewNote()">
+        <mat-icon>add</mat-icon>
+      </button>
+    </div>
   </div>
-  <button mat-fab (click)="addNewNote()"><mat-icon>add</mat-icon></button>
 </div>

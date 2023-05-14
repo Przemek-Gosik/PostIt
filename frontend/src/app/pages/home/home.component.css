@@ -1,0 +1,28 @@
+.app-home__component {
+  padding-top: 1%;
+  text-align: center;
+}
+
+.app-home__container {
+  width: 80%;
+  margin: auto;
+}
+
+.app-home__notes {
+  display: inline-block;
+  padding: 3em;
+  justify-content: space-around;
+}
+
+.app-home__note {
+  transform: rotate(-3deg);
+  position: relative;
+}
+
+.app-home__note:hover {
+  transform: rotate(0deg) scale(1.5);
+}
+
+
+
+

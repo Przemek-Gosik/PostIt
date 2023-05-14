@@ -1,10 +1,15 @@
-.note{
-  text-decoration:none;
-  color:#000;
-  background:#ffc;
-  display:block;
-  height:10em;
-  width:10em;
-  padding:1em;
-  box-shadow: 8px 5px 7px
+.app-note__component {
+  text-decoration: none;
+  color: #000;
+  background: lightyellow;
+  position: relative;
+  box-sizing: border-box;
+  min-height: 10em;
+  width: 10em;
+  padding: 1em;
+  box-shadow: 8px 5px 7px;
+  border-radius: 0px 8px 30px/5px 60px;
 }
+
+
+
