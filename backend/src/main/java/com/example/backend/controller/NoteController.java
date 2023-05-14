@@ -70,7 +70,7 @@ public class NoteController {
     }
 
     /**
-     * Method to edit note and save changes in databse
+     * Method to edit note and save changes in database
      *
      * @param noteDto is object with id of note to edit
      * @return is object with new note and status code 200
