@@ -7,6 +7,9 @@ import org.mapstruct.Mapper;
 import java.util.Collection;
 import java.util.List;
 
+/**
+ * Class for mapper of Note and NoteDto
+ */
 @Mapper
 public interface NoteMapper {
 
