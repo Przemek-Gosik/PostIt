@@ -16,7 +16,6 @@
 
 .app-home__note {
   transform: rotate(-3deg);
-  position: relative;
 }
 
 .app-home__note:hover {

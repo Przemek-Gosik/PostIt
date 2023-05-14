@@ -13,6 +13,8 @@ import { MatIconModule } from '@angular/material/icon';
 import { MenuComponent } from './pages/menu/menu.component';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatInputModule } from '@angular/material/input';
+import { DeleteNoteDialogComponent } from './pages/home/post-it-note/delete-note-dialog/delete-note-dialog.component';
+import { MatDialogModule } from '@angular/material/dialog';
 
 @NgModule({
   declarations: [
@@ -21,6 +23,7 @@ import { MatInputModule } from '@angular/material/input';
     PostItNoteComponent,
     PageNotFoundComponent,
     MenuComponent,
+    DeleteNoteDialogComponent,
   ],
   imports: [
     BrowserModule,
@@ -32,6 +35,7 @@ import { MatInputModule } from '@angular/material/input';
     MatIconModule,
     MatToolbarModule,
     MatInputModule,
+    MatDialogModule,
   ],
   providers: [],
   bootstrap: [AppComponent],
