@@ -41,8 +41,6 @@
             <optional>true</optional>
         </dependency>
 
-
-
         <!--Swagger dependencies-->
         <dependency>
             <groupId>org.springdoc</groupId>

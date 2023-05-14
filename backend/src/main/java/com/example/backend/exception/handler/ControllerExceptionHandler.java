@@ -2,6 +2,7 @@ package com.example.backend.exception.handler;
 
 import com.example.backend.exception.ResourceNotFoundException;
 import com.example.backend.exception.message.ErrorMessage;
+
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.MethodArgumentNotValidException;
@@ -10,6 +11,7 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.context.request.WebRequest;
+import org.springframework.web.servlet.NoHandlerFoundException;
 import java.time.LocalDateTime;
 
 /**
@@ -57,6 +59,21 @@ public class ControllerExceptionHandler {
                 .message(builder.toString())
                 .description(request.getDescription(false))
                 .build();
+    }
+
+    /**
+     * Handler for 404 error
+     *
+     * @return path to index.html
+     */
+    @ExceptionHandler(NoHandlerFoundException.class)
+    @ResponseStatus(value = HttpStatus.NOT_FOUND)
+    public String handleNoControllerException(WebRequest request) {
+        return "<body>\n" +
+                "    <h1>Route not found</h1>\n" +
+                "<p>For:"+request.getDescription(false)
+                +"</p>"+
+                "</body>";
     }
 
 
