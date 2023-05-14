@@ -25,22 +25,31 @@ export class PostItNoteComponent implements OnInit {
   }
 
   editNote(): void {
-    this.editable = true;
+    if (this.note) {
+      if (this.note.id) {
+        this.noteService.getNoteById(this.note.id).subscribe((res: Note) => {
+          this.note = res;
+        });
+        this.text = this.note.text;
+      }
+      this.editable = true;
+    }
   }
 
   saveNote(): void {
     this.editable = false;
-    if (this.note) {
+    if (this.note && this.text.length != 0) {
       this.note.text = this.text;
       if (this.note.id) {
-        this.noteService.editNote(this.note).subscribe((res: any) => {
-          console.log(res);
+        this.noteService.editNote(this.note).subscribe((res: Note) => {
+          this.note = res;
         });
       } else {
         this.noteService.createNote(this.note).subscribe((res: any) => {
-          console.log(res);
+          this.note = res;
         });
       }
+      this.text = this.note.text;
     }
   }
 
@@ -49,7 +58,6 @@ export class PostItNoteComponent implements OnInit {
     dialogRef.afterClosed().subscribe((res: boolean) => {
       if (res) {
         this.noteToDelete.emit();
-      } else {
       }
     });
   }

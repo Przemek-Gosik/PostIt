@@ -8,7 +8,6 @@ import com.example.backend.repository.NoteRepository;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
-
 import java.util.List;
 
 @AllArgsConstructor
@@ -23,8 +22,8 @@ public class NoteService {
         Note note = noteMapper.fromDto(noteDto);
         log.info(noteDto.getText());
         note = noteRepository.save(note);
+        log.info("Note created with id "+note.getId());
         return noteMapper.toDto(note);
-
     }
 
     public NoteDto editNote(NoteDto noteDto){
@@ -32,6 +31,7 @@ public class NoteService {
                 .orElseThrow(()->new ResourceNotFoundException("Note not found for id "+noteDto.getId()));
         note.setText(noteDto.getText());
         note = noteRepository.save(note);
+        log.info("Note edited for id "+note.getId());
         return noteMapper.toDto(note);
     }
 
@@ -39,6 +39,7 @@ public class NoteService {
         Note note = noteRepository.findById(id)
                 .orElseThrow(()->new ResourceNotFoundException("Note not found for id "+id));
         noteRepository.delete(note);
+        log.info("Note deleted ");
     }
 
     public List<NoteDto> getAllNotes(){
