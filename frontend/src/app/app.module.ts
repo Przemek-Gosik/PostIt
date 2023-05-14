@@ -15,6 +15,7 @@ import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatInputModule } from '@angular/material/input';
 import { DeleteNoteDialogComponent } from './pages/home/post-it-note/delete-note-dialog/delete-note-dialog.component';
 import { MatDialogModule } from '@angular/material/dialog';
+import { FormsModule } from '@angular/forms';
 
 @NgModule({
   declarations: [
@@ -36,6 +37,7 @@ import { MatDialogModule } from '@angular/material/dialog';
     MatToolbarModule,
     MatInputModule,
     MatDialogModule,
+    FormsModule,
   ],
   providers: [],
   bootstrap: [AppComponent],

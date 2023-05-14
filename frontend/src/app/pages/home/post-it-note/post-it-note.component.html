@@ -1,19 +1,22 @@
 <div class="app-note__component">
   <div class="app-note__buttons">
-    <button mat-icon-button (click)="editNote()">
-      <ng-container *ngIf="editable;else edit">
+
+    <ng-container *ngIf="editable;else edit">
+      <button mat-icon-button (click)="saveNote()">
         <mat-icon>done</mat-icon>
-      </ng-container>
-      <ng-template #edit>
+      </button>
+    </ng-container>
+    <ng-template #edit>
+      <button mat-icon-button (click)="editNote()">
         <mat-icon>create</mat-icon>
-      </ng-template>
-    </button>
+      </button>
+    </ng-template>
     <button mat-icon-button *ngIf='editable' (click)="openDialog()">
       <mat-icon>delete</mat-icon>
     </button>
   </div>
   <div class="app-note__text">
-    <textarea matInput cdkTextareaAutosize
-              cdkAutosizeMinRows="2" [disabled]="!editable">{{text}}</textarea>
+    <textarea [(ngModel)]="text" maxlength="220" matInput cdkTextareaAutosize cdkAutosizeMinRows="2"
+              [disabled]="!editable"></textarea>
   </div>
 </div>

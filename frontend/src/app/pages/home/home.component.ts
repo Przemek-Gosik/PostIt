@@ -30,6 +30,12 @@ export class HomeComponent implements OnInit {
   }
 
   deleteNote(index: number): void {
+    let note = this.notes[index];
+    if (note.id) {
+      this.noteService.deleteNote(note.id).subscribe((res: any) => {
+        console.log(res);
+      });
+    }
     this.notes.splice(index, 1);
   }
 }
