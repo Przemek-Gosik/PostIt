@@ -29,7 +29,6 @@ public class NoteService {
      */
     public NoteDto createNote(NoteDto noteDto){
         Note note = noteMapper.fromDto(noteDto);
-        log.info(noteDto.getText());
         note = noteRepository.save(note);
         log.info("Note created with id "+note.getId());
         return noteMapper.toDto(note);
