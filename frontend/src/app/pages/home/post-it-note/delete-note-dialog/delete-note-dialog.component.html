@@ -1,0 +1,7 @@
+<mat-dialog-content style="height: auto">
+  <p>{{message}}</p>
+</mat-dialog-content>
+<mat-dialog-actions>
+  <button mat-raised-button color="primary" [mat-dialog-close]="true">{{confirmText}}</button>
+  <button mat-raised-button [mat-dialog-close]="false">{{cancelText}}</button>
+</mat-dialog-actions>
