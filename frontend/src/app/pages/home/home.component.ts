@@ -8,7 +8,7 @@ import { Note } from '../../models/Note';
   styleUrls: ['./home.component.css'],
 })
 export class HomeComponent implements OnInit {
-  notes: Note[] = [];
+  notes: Note[] = new Array<Note>();
 
   constructor(private noteService: NoteService) {}
 
@@ -18,7 +18,9 @@ export class HomeComponent implements OnInit {
 
   getNotes(): void {
     this.noteService.getAllNotes().subscribe((res: Note[]) => {
-      this.notes = res;
+      if (res) {
+        this.notes = res;
+      }
     });
   }
 
