@@ -16,6 +16,8 @@ import { MatInputModule } from '@angular/material/input';
 import { DeleteNoteDialogComponent } from './pages/home/post-it-note/delete-note-dialog/delete-note-dialog.component';
 import { MatDialogModule } from '@angular/material/dialog';
 import { FormsModule } from '@angular/forms';
+import { MatTooltipModule } from '@angular/material/tooltip';
+import { MatSnackBarModule } from '@angular/material/snack-bar';
 
 @NgModule({
   declarations: [
@@ -38,6 +40,8 @@ import { FormsModule } from '@angular/forms';
     MatInputModule,
     MatDialogModule,
     FormsModule,
+    MatTooltipModule,
+    MatSnackBarModule,
   ],
   providers: [],
   bootstrap: [AppComponent],

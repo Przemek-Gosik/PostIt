@@ -3,6 +3,7 @@ import { Note } from '../../../models/Note';
 import { MatDialog } from '@angular/material/dialog';
 import { DeleteNoteDialogComponent } from './delete-note-dialog/delete-note-dialog.component';
 import { NoteService } from '../../../services/NoteService';
+import { MatSnackBar } from '@angular/material/snack-bar';
 
 @Component({
   selector: 'app-post-it-note',
@@ -13,7 +14,11 @@ export class PostItNoteComponent implements OnInit {
   text: string = '';
   editable: boolean = false;
 
-  constructor(private dialog: MatDialog, private noteService: NoteService) {}
+  constructor(
+    private dialog: MatDialog,
+    private noteService: NoteService,
+    private snackBar: MatSnackBar
+  ) {}
 
   @Input() note?: Note;
   @Output() noteToDelete = new EventEmitter();
@@ -37,20 +42,30 @@ export class PostItNoteComponent implements OnInit {
   }
 
   saveNote(): void {
-    this.editable = false;
-    if (this.note && this.text.length != 0) {
-      this.note.text = this.text;
-      if (this.note.id) {
-        this.noteService.editNote(this.note).subscribe((res: Note) => {
-          this.note = res;
-        });
+    if (this.note) {
+      if (this.text.length == 0) {
+        this.openSnackBack("You can't save empty text!");
+      } else if (this.text.length > 200) {
+        this.openSnackBack("You can't save text that is over 200 letters!");
       } else {
-        this.noteService.createNote(this.note).subscribe((res: any) => {
-          this.note = res;
-        });
+        this.note.text = this.text;
+        if (this.note.id) {
+          this.noteService.editNote(this.note).subscribe((res: Note) => {
+            this.note = res;
+          });
+        } else {
+          this.noteService.createNote(this.note).subscribe((res: any) => {
+            this.note = res;
+          });
+        }
+        this.text = this.note.text;
+        this.editable = false;
       }
-      this.text = this.note.text;
     }
+  }
+
+  openSnackBack(message: string): void {
+    this.snackBar.open(message, 'Close');
   }
 
   openDialog(): void {

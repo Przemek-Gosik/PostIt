@@ -29,5 +29,13 @@ textarea:focus {
   border: none;
 }
 
+.app-note__counter {
+  position: fixed;
+  bottom: 1%;
+  right: 3%;
+  font-size: x-small;
+}
+
+
 
 
