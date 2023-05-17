@@ -134,7 +134,7 @@ public class NoteControllerTest {
 
         ObjectMapper obj = new ObjectMapper();
 
-        ResultActions resultActions = mockMvc.perform(put(NOTE_CRUD_ENDPOINT)
+        ResultActions resultActions = mockMvc.perform(put(NOTE_CRUD_ENDPOINT.concat("/"+newNote.getId()))
                 .contentType(MediaType.APPLICATION_JSON)
                 .content(obj.writeValueAsBytes(newNote)));
 
@@ -156,7 +156,7 @@ public class NoteControllerTest {
 
         ObjectMapper obj = new ObjectMapper();
 
-        ResultActions resultActions = mockMvc.perform(put(NOTE_CRUD_ENDPOINT)
+        ResultActions resultActions = mockMvc.perform(put(NOTE_CRUD_ENDPOINT.concat("/"+note.getId().toString()))
                 .contentType(MediaType.APPLICATION_JSON)
                 .content(obj.writeValueAsBytes(newNote)));
 

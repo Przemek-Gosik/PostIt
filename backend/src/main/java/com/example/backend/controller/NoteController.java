@@ -75,9 +75,9 @@ public class NoteController {
      * @param noteDto is object with id of note to edit
      * @return is object with new note and status code 200
      */
-    @PutMapping("")
-    public ResponseEntity<NoteDto> editNote(@Valid @RequestBody NoteDto noteDto){
-        return ResponseEntity.ok(noteService.editNote(noteDto));
+    @PutMapping("/{id}")
+    public ResponseEntity<NoteDto> editNote(@PathVariable("id") Long id,@Valid @RequestBody NoteDto noteDto){
+        return ResponseEntity.ok(noteService.editNote(id,noteDto));
     }
 
     /**

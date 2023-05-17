@@ -40,9 +40,9 @@ public class NoteService {
      * @param noteDto is object with changed data and id of note to edit
      * @return is object with edited data
      */
-    public NoteDto editNote(NoteDto noteDto){
-        Note note = noteRepository.findById(noteDto.getId())
-                .orElseThrow(()->new ResourceNotFoundException("Note not found for id "+noteDto.getId()));
+    public NoteDto editNote(Long idNote,NoteDto noteDto){
+        Note note = noteRepository.findById(idNote)
+                .orElseThrow(()->new ResourceNotFoundException("Note not found for id "+idNote));
         note.setText(noteDto.getText());
         note = noteRepository.save(note);
         log.info("Note edited for id "+note.getId());
