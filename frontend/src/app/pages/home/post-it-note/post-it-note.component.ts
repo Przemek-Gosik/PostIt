@@ -1,9 +1,9 @@
-import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
-import { Note } from '../../../models/Note';
-import { MatDialog } from '@angular/material/dialog';
-import { DeleteNoteDialogComponent } from './delete-note-dialog/delete-note-dialog.component';
-import { NoteService } from '../../../services/NoteService';
-import { MatSnackBar } from '@angular/material/snack-bar';
+import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
+import {Note} from '../../../models/Note';
+import {MatDialog} from '@angular/material/dialog';
+import {DeleteNoteDialogComponent} from './delete-note-dialog/delete-note-dialog.component';
+import {NoteService} from '../../../services/NoteService';
+import {MatSnackBar} from '@angular/material/snack-bar';
 
 @Component({
   selector: 'app-post-it-note',
@@ -18,7 +18,8 @@ export class PostItNoteComponent implements OnInit {
     private dialog: MatDialog,
     private noteService: NoteService,
     private snackBar: MatSnackBar
-  ) {}
+  ) {
+  }
 
   @Input() note?: Note;
   @Output() noteToDelete = new EventEmitter();
@@ -34,8 +35,9 @@ export class PostItNoteComponent implements OnInit {
       if (this.note.id) {
         this.noteService.getNoteById(this.note.id).subscribe((res: Note) => {
           this.note = res;
+          this.text = this.note.text;
         });
-        this.text = this.note.text;
+
       }
       this.editable = true;
     }
