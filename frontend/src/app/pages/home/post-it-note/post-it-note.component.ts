@@ -1,9 +1,9 @@
-import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
-import {Note} from '../../../models/Note';
-import {MatDialog} from '@angular/material/dialog';
-import {DeleteNoteDialogComponent} from './delete-note-dialog/delete-note-dialog.component';
-import {NoteService} from '../../../services/NoteService';
-import {MatSnackBar} from '@angular/material/snack-bar';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { Note } from '../../../models/Note';
+import { MatDialog } from '@angular/material/dialog';
+import { DeleteNoteDialogComponent } from './delete-note-dialog/delete-note-dialog.component';
+import { NoteService } from '../../../services/NoteService';
+import { MatSnackBar } from '@angular/material/snack-bar';
 
 @Component({
   selector: 'app-post-it-note',
@@ -18,8 +18,7 @@ export class PostItNoteComponent implements OnInit {
     private dialog: MatDialog,
     private noteService: NoteService,
     private snackBar: MatSnackBar
-  ) {
-  }
+  ) {}
 
   @Input() note?: Note;
   @Output() noteToDelete = new EventEmitter();
@@ -37,7 +36,6 @@ export class PostItNoteComponent implements OnInit {
           this.note = res;
           this.text = this.note.text;
         });
-
       }
       this.editable = true;
     }
@@ -45,7 +43,7 @@ export class PostItNoteComponent implements OnInit {
 
   saveNote(): void {
     if (this.note) {
-      if (this.text.length == 0) {
+      if (this.text.length === 0 || !this.text.trim()) {
         this.openSnackBack("You can't save empty text!");
       } else if (this.text.length > 200) {
         this.openSnackBack("You can't save text that is over 200 letters!");
