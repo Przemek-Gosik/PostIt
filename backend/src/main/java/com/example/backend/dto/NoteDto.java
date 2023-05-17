@@ -1,6 +1,6 @@
 package com.example.backend.dto;
 
-import jakarta.validation.constraints.NotEmpty;
+import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Size;
 import lombok.AllArgsConstructor;
 import lombok.EqualsAndHashCode;
@@ -17,7 +17,7 @@ public class NoteDto {
 
     private Long id;
 
-    @NotEmpty(message = "Message shouldn't be empty")
-    @Size(max = 220, message = "Message shouldn't be longer than 220 characters")
+    @NotBlank(message = "Text can't be empty!")
+    @Size(max = 200,message = "Text can't be longer than 200 characters!")
     private String text;
 }

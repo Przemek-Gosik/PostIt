@@ -18,9 +18,7 @@ export class HomeComponent implements OnInit {
 
   getNotes(): void {
     this.noteService.getAllNotes().subscribe((res: Note[]) => {
-      if (res) {
-        this.notes = res;
-      }
+      if (res) this.notes = res;
     });
   }
 
