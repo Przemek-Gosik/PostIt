@@ -2,7 +2,6 @@ package com.example.backend.exception.handler;
 
 import com.example.backend.exception.ResourceNotFoundException;
 import com.example.backend.exception.message.ErrorMessage;
-
 import jakarta.validation.ConstraintViolationException;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
@@ -115,7 +114,6 @@ public class ControllerExceptionHandler {
         return new ResponseEntity<>(errorMessage,HttpStatus.BAD_REQUEST);
     }
 
-
     /**
      * Handler for 404 error
      *
@@ -130,7 +128,6 @@ public class ControllerExceptionHandler {
                 "</body>";
         return new ResponseEntity<>(page,HttpStatus.NOT_FOUND);
     }
-
 
     /**
      * @param exception is unknown type exception
@@ -150,6 +147,4 @@ public class ControllerExceptionHandler {
                 .build();
         return new ResponseEntity<>(errorMessage,HttpStatus.INTERNAL_SERVER_ERROR);
     }
-
-
 }
