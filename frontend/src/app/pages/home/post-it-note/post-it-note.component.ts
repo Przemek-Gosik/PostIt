@@ -50,9 +50,11 @@ export class PostItNoteComponent implements OnInit {
       } else {
         this.note.text = this.text;
         if (this.note.id) {
-          this.noteService.editNote(this.note).subscribe((res: Note) => {
-            this.note = res;
-          });
+          this.noteService
+            .editNote(this.note.id, this.note)
+            .subscribe((res: Note) => {
+              this.note = res;
+            });
         } else {
           this.noteService.createNote(this.note).subscribe((res: any) => {
             this.note = res;
