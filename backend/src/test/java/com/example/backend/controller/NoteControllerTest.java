@@ -76,6 +76,20 @@ public class NoteControllerTest {
     }
 
     @Test
+    void createNote_givenNote_Get201Response() throws Exception{
+        ObjectMapper obj = new ObjectMapper();
+        NoteDto noteDto = new NoteDto();
+        noteDto.setText("New text");
+
+        ResultActions resultActions = mockMvc.perform(post(NOTE_CRUD_ENDPOINT)
+                .contentType(MediaType.APPLICATION_JSON)
+                .content(obj.writeValueAsBytes(noteDto)));
+        resultActions.andExpect(status().isCreated())
+                .andDo(print())
+                .andExpect(jsonPath("$.text",is(noteDto.getText())));
+    }
+
+    @Test
     void createNote_givenNoteWithEmptyText_Get400Response() throws Exception {
         ObjectMapper obj = new ObjectMapper();
         NoteDto noteDto = new NoteDto();
@@ -114,14 +128,13 @@ public class NoteControllerTest {
 
     @Test
     void createNote_notGivenBodyToRequest_Get400Response() throws Exception {
-
         ResultActions resultActions = mockMvc.perform(post(NOTE_CRUD_ENDPOINT)
                 .contentType(MediaType.APPLICATION_JSON));
 
         resultActions.andExpect(status().isBadRequest())
                 .andDo(print())
                 .andExpect(jsonPath("$.statusCode",is(HttpStatus.BAD_REQUEST.value())))
-                .andExpect(jsonPath("$.message",is("HttpMessageNotReadableException")));
+                .andExpect(jsonPath("$.message",is("Error in request structure")));
     }
 
     @Test
@@ -167,4 +180,18 @@ public class NoteControllerTest {
                 .andExpect(jsonPath("$.details[0]",is("Text can't be longer than 200 characters!")))
                 .andExpect(jsonPath("$.path",containsString(NOTE_CRUD_ENDPOINT)));
     }
+
+    @Test
+    void getNoteById_GivenInvalidId_Get404Response() throws Exception {
+        Long id = 1L;
+        ResultActions resultActions = mockMvc.perform(get(NOTE_CRUD_ENDPOINT.concat("/"+id)));
+
+        resultActions.andExpect(status().isNotFound())
+                .andDo(print())
+                .andExpect(jsonPath("$.statusCode",is(HttpStatus.NOT_FOUND.value())))
+                .andExpect(jsonPath("$.message",is("Resource not found!")))
+                .andExpect(jsonPath("$.details[0]",is("Note not found for id "+id)));
+    }
+
+
 }

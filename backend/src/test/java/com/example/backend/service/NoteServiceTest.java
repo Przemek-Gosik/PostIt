@@ -71,4 +71,38 @@ public class NoteServiceTest {
         assertThrows(ResourceNotFoundException.class,()->noteService.deleteNote(id));
     }
 
+    @Test
+    public void createNote_GivenValidDto_GetNewNote(){
+        NoteDto noteDto = new NoteDto();
+        noteDto.setText(note1.getText());
+        when(noteMapper.fromDto(noteDto)).thenReturn(note1);
+        when(noteRepository.save(note1)).thenReturn(note1);
+        noteService.createNote(noteDto);
+        verify(noteRepository,times(1)).save(note1);
+    }
+
+    @Test
+    public void editNote_GivenValidDto_GetNewNote(){
+        String newText = "NewText";
+        NoteDto newNoteDto = new NoteDto(note1.getId(), newText);
+
+        when(noteRepository.findById(note1.getId())).thenReturn(Optional.of(note1));
+        when(noteRepository.save(note1)).thenReturn(note1);
+        when(noteMapper.toDto(note1)).thenReturn(newNoteDto);
+
+        assertEquals(newNoteDto,noteService.editNote(note1.getId(),newNoteDto));
+        verify(noteRepository,times(1)).save(note1);
+    }
+
+    @Test
+    public void editNote_GivenInvalidId_ExceptionThrown(){
+        String newText = "NewText";
+        Long id = 2L;
+        NoteDto newNoteDto = new NoteDto(note1.getId(), newText);
+
+        when(noteRepository.findById(id)).thenReturn(Optional.empty());
+
+        assertThrows(ResourceNotFoundException.class,()->noteService.editNote(id,newNoteDto));
+    }
+
 }
