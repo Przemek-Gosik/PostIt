@@ -14,7 +14,6 @@ import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.context.request.WebRequest;
 import org.springframework.web.method.annotation.MethodArgumentTypeMismatchException;
 import org.springframework.web.servlet.NoHandlerFoundException;
@@ -35,27 +34,27 @@ public class ControllerExceptionHandler {
     /**
      * @param exception is ResourceNotFound exception
      * @param request is WebRequest
-     * @return is object with message, Http status code value and date
+     * @return is object with message, Http status code 404 value and date
      */
     @ExceptionHandler(ResourceNotFoundException.class)
-    @ResponseStatus(value = HttpStatus.NOT_FOUND)
-    public ErrorMessage handleResourceNotFoundException(
+    public ResponseEntity<ErrorMessage> handleResourceNotFoundException(
             ResourceNotFoundException exception
-            , WebRequest request){
+            ,WebRequest request){
         log.warn(exception.getLocalizedMessage());
-        return ErrorMessage.builder()
+        ErrorMessage errorMessage = ErrorMessage.builder()
                 .statusCode(HttpStatus.NOT_FOUND.value())
                 .dateTime(LocalDateTime.now())
                 .message("Resource not found!")
                 .details(Collections.singletonList(exception.getMessage()))
                 .path(request.getDescription(false))
                 .build();
+        return new ResponseEntity<>(errorMessage,HttpStatus.NOT_FOUND);
     }
 
     /**
      * @param exception is ArgumentNotValidException
      * @param request is WebRequest
-     * @return is object with validation messages, Http Status and date
+     * @return is object with validation messages, status code 400 and dateTime
      */
     @ExceptionHandler(MethodArgumentNotValidException.class)
     public ResponseEntity<ErrorMessage> handleArgumentNotValidException(
@@ -74,6 +73,11 @@ public class ControllerExceptionHandler {
         return new ResponseEntity<>(errorMessage,HttpStatus.BAD_REQUEST);
     }
 
+    /**
+     * @param exception is ConstraintViolationException
+     * @param request is WebRequest
+     * @return is data with error details, dateTime and status code 400
+     */
     @ExceptionHandler(ConstraintViolationException.class)
     public ResponseEntity<ErrorMessage> handleConstraintViolationException(
             ConstraintViolationException exception,
@@ -91,8 +95,6 @@ public class ControllerExceptionHandler {
     }
 
     /**
-     * Method
-     *
      * @param exception is of types included in annotation
      * @param request is WebRequest
      * @return is object with Http status code, error type, error details and route path
@@ -107,7 +109,7 @@ public class ControllerExceptionHandler {
         ErrorMessage errorMessage = ErrorMessage.builder()
                 .statusCode(HttpStatus.BAD_REQUEST.value())
                 .dateTime(LocalDateTime.now())
-                .message(exception.getClass().getSimpleName())
+                .message("Error in request structure")
                 .details(Collections.singletonList(exception.getMessage()))
                 .path(request.getDescription(false))
                 .build();
@@ -141,7 +143,7 @@ public class ControllerExceptionHandler {
         ErrorMessage errorMessage = ErrorMessage.builder()
                 .statusCode(HttpStatus.INTERNAL_SERVER_ERROR.value())
                 .dateTime(LocalDateTime.now())
-                .message(exception.getClass().getSimpleName())
+                .message("Unknown exception occurred")
                 .details(Collections.singletonList(exception.getMessage()))
                 .path(request.getDescription(false))
                 .build();
